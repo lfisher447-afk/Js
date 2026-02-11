@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norepted v2.0</title>
+    
+    <!-- Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.3.1/dist/purify.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/x64bitMango/x-frame-anywhere/x-frame-anywhere.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Security Module Injection -->
+    <script type="module">
+        import security from './security.js';
+        // Start client-side protections
+        security.start();
+        
+        // Expose instance for debugging
+        window.securityInstance = security;
+    </script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="bg-gradient-overlay"></div>
+
+    <nav class="navbar fade-in">
+        <div class="logo">NOREPTED <span style="font-size:0.6em; background:#58C114; color:black; padding:2px 5px; border-radius:4px;">ULTRA</span></div>
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="app.switchView('home')">Home</button>
+            <button class="nav-btn" onclick="app.switchView('search')">Search</button>
+            <button class="nav-btn" onclick="app.switchView('settings')">Settings</button>
+            <button class="nav-btn" onclick="app.switchView('about')">About</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home View -->
+        <section id="view-home" class="spa-section active-section">
+            <h1 class="fade-in">Secure YouTube Watcher</h1>
+            
+            <div class="input-group fade-in">
+                <input type="text" id="video-link" placeholder="Paste YouTube link here..." />
+                <button id="launch-btn" class="primary-btn">LAUNCH</button>
+            </div>
+
+            <div class="status-bar fade-in">
+                <span id="backend-status">Connecting to Backend...</span>
+            </div>
+
+            <div class="video-container" id="video-grid">
+                <!-- Videos go here -->
+            </div>
+        </section>
+
+        <!-- Search View -->
+        <section id="view-search" class="spa-section">
+            <h1 class="fade-in">Search Invidious</h1>
+            <div class="input-group fade-in">
+                <input type="text" id="search-input" placeholder="Search keywords..." />
+                <button onclick="app.search()" class="primary-btn">SEARCH</button>
+            </div>
+            <div id="search-results" class="results-grid"></div>
+        </section>
+
+        <!-- Settings View -->
+        <section id="view-settings" class="spa-section">
+            <div class="card fade-in">
+                <h2>Settings</h2>
+                <div class="setting-row">
+                    <span>Performance Mode (Disable Particles)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="opt-toggle" onchange="app.toggleOpt()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <span>Force X-Frame-Anywhere (Bypass Headers)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="xframe-toggle" onchange="app.toggleXFrame()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <span>Invidious Backend</span>
+                    <select id="backend-select" onchange="app.changeBackend()">
+                        <option value="auto">Auto-Select (Best)</option>
+                        <!-- Populated via JS -->
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <span>Video Quality</span>
+                    <select id="quality-select" onchange="localStorage.setItem('prefQuality', this.value)">
+                        <option value="1080p">1080p</option>
+                        <option value="720p" selected>720p</option>
+                        <option value="360p">360p</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- About View -->
+        <section id="view-about" class="spa-section">
+            <div class="card fade-in">
+                <h2>About Norepted Ultra</h2>
+                <p>Combines Invidious API, X-Frame-Anywhere Proxy, and Security.js Fortress.</p>
+                <button onclick="window.securityInstance.injectControlPanel(); alert('Press LeftShift + F10 to toggle panel');" class="secondary-btn">Open Security Panel</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toasts -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
