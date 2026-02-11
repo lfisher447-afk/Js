@@ -1,0 +1,19 @@
+{
+  "name": "norepted-ultra",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node security.js",
+    "validate": "node validator.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "sqlite3": "^5.1.7",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "express-mongo-sanitize": "^2.2.0"
+  },
+  "description": "Norepted Ultra with Security Fortress"
+}
